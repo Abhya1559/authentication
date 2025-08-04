@@ -1,0 +1,68 @@
+import Link from "next/link";
+
+export default function Login() {
+  return (
+    <div className="flex justify-center items-center min-h-screen  text-white">
+      <form
+        action=""
+        className="flex mt-10 flex-col gap-4 border-2 rounded-2xl p-10 bg-gray-800 w-full max-w-md"
+      >
+        <h1 className="font-bold text-4xl text-center">Login</h1>
+
+        <div className="flex flex-col gap-2">
+          <label htmlFor="email" className="font-semibold text-lg">
+            Email
+          </label>
+          <input
+            id="email"
+            type="email"
+            required
+            className="border-2 rounded-2xl p-4 text-black"
+          />
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <div className="flex justify-between items-center">
+            <label htmlFor="password" className="font-semibold text-lg">
+              Password
+            </label>
+            <a href="#" className="hover:text-orange-400 text-sm">
+              Forgot Password
+            </a>
+          </div>
+          <input
+            id="password"
+            type="password"
+            required
+            className="border-2 rounded-2xl p-4 text-black"
+          />
+        </div>
+
+        <button
+          type="submit"
+          className="border-blue-500 border-2 mt-2 cursor-pointer text-blue-500 font-semibold text-lg rounded-2xl p-4 hover:bg-blue-600 hover:text-white transition-colors"
+        >
+          Submit
+        </button>
+
+        <p className="text-center text-gray-400 text-sm">
+          Don&apos;t have an account?{" "}
+          <Link href="/register" className="font-semibold hover:text-orange-400">
+            Register
+          </Link>
+        </p>
+
+        <p className="text-gray-400 text-xs mt-4">
+          By clicking submit, you agree to our{" "}
+          <a href="#" className="font-semibold hover:text-orange-400">
+            Terms of Service
+          </a>{" "}
+          and{" "}
+          <a href="#" className="font-semibold hover:text-orange-400">
+            Privacy Policy
+          </a>
+        </p>
+      </form>
+    </div>
+  );
+}
