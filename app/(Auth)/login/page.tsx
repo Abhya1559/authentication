@@ -3,6 +3,9 @@ import Link from "next/link";
 export default function Login() {
   return (
     <div className="flex justify-center items-center min-h-screen  text-white">
+      <Link rel="stylesheet" href="/" className="absolute top-4 left-4 text-blue-500 hover:text-blue-700 ml-2">
+        Home
+      </Link>
       <form
         action=""
         className="flex mt-10 flex-col gap-4 border-2 rounded-2xl p-10 bg-gray-800 w-full max-w-md"
@@ -15,26 +18,27 @@ export default function Login() {
           </label>
           <input
             id="email"
+            name="email"
             type="email"
+            className="border-2 rounded-xl p-4 "
+            placeholder="Enter your email"
+            autoComplete="off"
             required
-            className="border-2 rounded-2xl p-4 text-black"
           />
         </div>
 
         <div className="flex flex-col gap-2">
-          <div className="flex justify-between items-center">
-            <label htmlFor="password" className="font-semibold text-lg">
-              Password
-            </label>
-            <a href="#" className="hover:text-orange-400 text-sm">
-              Forgot Password
-            </a>
-          </div>
+          <label htmlFor="password" className="font-semibold text-lg">
+            Password
+          </label>
           <input
             id="password"
+            name="password"
             type="password"
+            className="border-2 rounded-xl p-4 "
+            placeholder="******"
+            autoComplete="new-password"
             required
-            className="border-2 rounded-2xl p-4 text-black"
           />
         </div>
 
@@ -47,7 +51,10 @@ export default function Login() {
 
         <p className="text-center text-gray-400 text-sm">
           Don&apos;t have an account?{" "}
-          <Link href="/register" className="font-semibold hover:text-orange-400">
+          <Link
+            href="/register"
+            className="font-semibold hover:text-orange-400"
+          >
             Register
           </Link>
         </p>
