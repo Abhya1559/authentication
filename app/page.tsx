@@ -19,7 +19,6 @@ export default function Home() {
   };
   return (
     <div className="flex flex-col items-center justify-center h-screen bg-gray-900">
-      {/* <Login /> */}
       {animate && (
         <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-80 z-50 transition-opacity duration-500">
           <div className="w-20 h-20 border-8 border-white border-t-transparent rounded-full animate-spin" />
