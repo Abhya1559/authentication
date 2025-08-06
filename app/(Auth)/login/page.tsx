@@ -1,17 +1,47 @@
+"use client"
 import Link from "next/link";
+import { useRouter } from 'next/navigation'
+import { useState } from "react";
 
 export default function Login() {
+  const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    const response = await fetch("http://localhost:3000/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+
+    const data = response.json();
+    if (!response.ok) {
+      setError("Something went wrong");
+      return;
+    }
+    router.push("/");
+  };
   return (
     <div className="flex justify-center items-center min-h-screen  text-white">
-      <Link rel="stylesheet" href="/" className="absolute top-4 left-4 text-blue-500 hover:text-blue-700 ml-2">
+      <Link
+        rel="stylesheet"
+        href="/"
+        className="absolute top-4 left-4 text-blue-500 hover:text-blue-700 ml-2"
+      >
         Home
       </Link>
+
       <form
+        onSubmit={handleSubmit}
         action=""
         className="flex mt-10 flex-col gap-4 border-2 rounded-2xl p-10 bg-gray-800 w-full max-w-md"
       >
         <h1 className="font-bold text-4xl text-center">Login</h1>
-
+        {error && <p className="text-red-500 mb-2">{error}</p>}
         <div className="flex flex-col gap-2">
           <label htmlFor="email" className="font-semibold text-lg">
             Email
@@ -20,6 +50,8 @@ export default function Login() {
             id="email"
             name="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="border-2 rounded-xl p-4 "
             placeholder="Enter your email"
             autoComplete="off"
@@ -35,6 +67,8 @@ export default function Login() {
             id="password"
             name="password"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="border-2 rounded-xl p-4 "
             placeholder="******"
             autoComplete="new-password"

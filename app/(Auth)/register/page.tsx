@@ -1,13 +1,47 @@
+"use client";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Register() {
+  const router = useRouter();
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    try {
+      const response = await fetch("http://localhost:3000/api/auth/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, password }),
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        setError("Please check the credentials");
+      }
+      router.push("/login");
+    } catch (error) {
+      
+    }
+  };
   return (
     <div className="flex justify-center items-center min-h-screen text-white">
-      <Link href="/" className="absolute top-4 left-4 text-red-400 hover:text-red-600">Home</Link>
+      <Link
+        href="/"
+        className="absolute top-4 left-4 text-red-400 hover:text-red-600"
+      >
+        Home
+      </Link>
       <form
+        onSubmit={handleSubmit}
         action=""
         className="flex mt-10 flex-col gap-4 border-2 rounded-2xl p-10 bg-gray-800 max-w-md w-full"
       >
+        {error && <p>{error}</p>}
         <h1 className="font-bold text-4xl text-center">Register</h1>
 
         <div className="flex flex-col gap-2">
@@ -18,6 +52,8 @@ export default function Register() {
             id="name"
             name="name"
             type="text"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
             className="border-2 rounded-xl p-4 "
             placeholder="Enter your name"
             autoComplete="off"
@@ -33,6 +69,8 @@ export default function Register() {
             id="email"
             name="email"
             type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             className="border-2 rounded-xl p-4 "
             placeholder="Enter your email"
             autoComplete="off"
@@ -48,6 +86,8 @@ export default function Register() {
             id="password"
             name="password"
             type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             className="border-2 rounded-xl p-4 "
             placeholder="******"
             autoComplete="new-password"
