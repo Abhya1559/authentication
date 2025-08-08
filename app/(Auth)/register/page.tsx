@@ -97,7 +97,7 @@ export default function Register() {
 
         <button
           type="submit"
-          className="border-red-400 border-2 p-4 rounded-xl font-bold text-lg text-red-400 hover:bg-red-400 hover:text-white transition-colors"
+          className="border-red-400 cursor-pointer border-2 p-4 rounded-xl font-bold text-lg text-red-400 hover:bg-red-400 hover:text-white transition-colors"
         >
           Register
         </button>
