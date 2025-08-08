@@ -23,7 +23,9 @@ export default function Login() {
       setError(data.message || "Something went wrong");
       return;
     }
-    router.push("/");
+    router.refresh()
+    router.push("/")
+ 
   };
   return (
     <div className="flex justify-center items-center min-h-screen  text-white">

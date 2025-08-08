@@ -23,7 +23,7 @@ export default function HomeClient({ isLoggedIn }: { isLoggedIn: boolean }) {
       method: "POST",
       credentials: "include",
     });
-    setTimeout(() => router.refresh(), 1000); // reload page to re-check cookie
+    setTimeout(() => router.refresh(), 1000); 
   };
 
   return (
