@@ -21,7 +21,10 @@ export async function POST() {
     expires: new Date(0),
   });
 
-  const response = NextResponse.json({ message: "Logout successful" });
+  const response = NextResponse.json(
+    { message: "Logout successful" },
+    { status: 200 }
+  );
   response.headers.set("Set-Cookie", cookie);
   return response;
 }

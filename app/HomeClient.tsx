@@ -19,11 +19,17 @@ export default function HomeClient({ isLoggedIn }: { isLoggedIn: boolean }) {
 
   const handleLogout = async () => {
     setAnimate(true);
-    await fetch("/api/auth/logout", {
+    const res = await fetch("/api/auth/logout", {
       method: "POST",
       credentials: "include",
+      cache:"no-store"
     });
-    setTimeout(() => router.refresh(), 1000); 
+    console.log(res)
+    if (res.ok) {
+        setTimeout(()=>{
+            window.location.href = "/login"
+        },1000)
+    }
   };
 
   return (

@@ -23,9 +23,8 @@ export default function Login() {
       setError(data.message || "Something went wrong");
       return;
     }
-    router.refresh()
-    router.push("/")
- 
+    router.refresh();
+    router.push("/");
   };
   return (
     <div className="flex justify-center items-center min-h-screen  text-white">
@@ -94,7 +93,9 @@ export default function Login() {
             Register
           </Link>
         </p>
-
+        <button className="border-white border-2 mt-2 cursor-pointer text-blue-500 font-semibold text-lg rounded-2xl p-4 hover:border-blue-600 hover:text-white transition-colors">
+          Login with google
+        </button>
         <p className="text-gray-400 text-xs mt-4">
           By clicking submit, you agree to our{" "}
           <a href="#" className="font-semibold hover:text-orange-400">
