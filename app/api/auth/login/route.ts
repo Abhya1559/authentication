@@ -13,32 +13,29 @@ export async function POST(request: NextRequest) {
     const { email, password } = body;
 
     if (!email || !password) {
-      return NextResponse.json({
-        message: "All credentials are required",
-        status: 404,
-      });
+      return NextResponse.json(
+        { message: "All credentials are required" },
+        { status: 404 }
+      );
     }
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       return NextResponse.json({ message: "Please register !!!", status: 400 });
     }
-    const pass = await hashPassword(password);
-    const comparePassword = bcrypt.compare(password, pass);
-
-    console.log(comparePassword);
-    if (!comparePassword) {
-      return NextResponse.json({
-        message: "Password is incorrect ",
-        status: 404,
-      });
+    const isMatch = await bcrypt.compare(password, user.password);
+    console.log(isMatch)
+    if (!isMatch) {
+      return NextResponse.json(
+        { message: "Password is incorrect" },
+        { status: 401 }
+      );
     }
 
     const token = generateToken({ id: user._id, email: user.email });
 
     const cookie = serialize("token", token, {
       httpOnly: true,
-      secure: true,
+      secure: process.env.NODE_ENV === "production",
       path: "/",
       maxAge: 60 * 60 * 24 * 7,
     });

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 import Link from "next/link";
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Login() {
@@ -18,9 +18,9 @@ export default function Login() {
       body: JSON.stringify({ email, password }),
     });
 
-    const data = response.json();
+    const data = await response.json();
     if (!response.ok) {
-      setError("Something went wrong");
+      setError(data.message || "Something went wrong");
       return;
     }
     router.push("/");

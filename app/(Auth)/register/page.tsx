@@ -20,13 +20,11 @@ export default function Register() {
         body: JSON.stringify({ name, email, password }),
       });
       const data = await response.json();
-      if (!response.ok) {
+      if (!response.ok || !data.success) {
         setError("Please check the credentials");
       }
       router.push("/login");
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
   return (
     <div className="flex justify-center items-center min-h-screen text-white">
