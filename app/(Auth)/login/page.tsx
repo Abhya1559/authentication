@@ -1,13 +1,35 @@
 "use client";
+import { auth, provider } from "@/lib/firebase";
+import { signInWithPopup } from "firebase/auth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
 
 export default function Login() {
   const router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
+  const handleGoogleLogin = async () => {
+    try {
+      const response = await signInWithPopup(auth, provider);
+      const user = response.user;
+      const idToken = await user.getIdToken();
+
+      const res = await fetch("/api/auth/google-login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: idToken }),
+      });
+      if (!res.ok) throw new Error("Google login failed");
+      router.refresh();
+      router.push("/");
+    } catch (error) {
+      console.error("Google Sign-in Error", error);
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -93,8 +115,11 @@ export default function Login() {
             Register
           </Link>
         </p>
-        <button className="border-white border-2 mt-2 cursor-pointer text-blue-500 font-semibold text-lg rounded-2xl p-4 hover:border-blue-600 hover:text-white transition-colors">
-          Login with google
+        <button
+          onClick={handleGoogleLogin}
+          className="border-white flex items-center justify-center gap-8 border-2 mt-2 cursor-pointer text-blue-500 font-semibold text-lg rounded-2xl p-4 hover:border-blue-600 hover:text-white transition-colors"
+        >
+          <FcGoogle size={30} /> Login with google
         </button>
         <p className="text-gray-400 text-xs mt-4">
           By clicking submit, you agree to our{" "}
