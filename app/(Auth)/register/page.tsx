@@ -93,19 +93,19 @@ export default function Register() {
           />
         </div>
 
-        <button
-          type="submit"
-          className="border-red-400 cursor-pointer border-2 p-4 rounded-xl font-bold text-lg text-red-400 hover:bg-red-400 hover:text-white transition-colors"
-        >
-          Register
-        </button>
-
         <p className="text-center text-gray-400 text-sm">
           Already have an account?{" "}
           <Link href="/login" className="font-semibold hover:text-orange-400">
             Login
           </Link>
         </p>
+
+        <button
+          type="submit"
+          className="border-red-400 cursor-pointer border-2 p-4 rounded-xl font-bold text-lg text-red-400 hover:bg-red-400 hover:text-white transition-colors"
+        >
+          Register
+        </button>
 
         <p className="text-gray-400 text-xs mt-4">
           By clicking submit, you agree to our{" "}
